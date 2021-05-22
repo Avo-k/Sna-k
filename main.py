@@ -19,7 +19,7 @@ N, E, W, S = (-1, 0), (0, 1), (1, 0), (0, -1)
 # initialize pygame and create window
 pygame.init()
 pygame.mixer.init()
-screen = pygame.display.set_mode((WIDTH+10, HEIGHT+10))
+screen = pygame.display.set_mode((WIDTH + 10, HEIGHT + 10))
 pygame.display.set_caption("Sna-k")
 clock = pygame.time.Clock()
 
@@ -30,19 +30,27 @@ class Cube(pygame.sprite.Sprite):
         self.image = pygame.Surface((50, 50))
         self.image.fill(GREEN)
         self.rect = self.image.get_rect()
-        self.speed = 150/FPS
-        self.dir = W
+        self.rect.center = (WIDTH / 2, HEIGHT / 2)
 
-    def update(self, dir):
-        if dir and self.rect.bottomleft % 50 == 0:
-            self.dir = dir
-        self.rect.x += self.speed
+        self.speed = 150 / FPS
+        self.dir = None  # doesnt move at the beginning of the game
+
+    def update(self, *args):
+
+        if self.dir == pygame.K_UP:
+            self.rect.move_ip(0, -self.speed)
+        elif self.dir == pygame.K_RIGHT:
+            self.rect.move_ip(self.speed, 0)
+        elif self.dir == pygame.K_DOWN:
+            self.rect.move_ip(0, self.speed)
+        elif self.dir == pygame.K_LEFT:
+            self.rect.move_ip(-self.speed, 0)
 
 
 all_sprites = pygame.sprite.Group()
 snake = Cube()
 all_sprites.add(snake)
-
+next_dir = None
 
 # Game loop
 running = True
@@ -57,19 +65,13 @@ while running:
 
         if event.type == pygame.KEYDOWN:
 
-            print(event.key)
-
-            # if event.key == K_UP:
-            #     keys[0] = True
-            # elif event.key == K_LEFT:
-            #     keys[1] = True
-            # elif event.key == K_DOWN:
-            #     keys[2] = True
-            # elif event.key == K_RIGHT:
-            #     keys[3] = True
+            snake.dir = event.key
 
     # Update
     all_sprites.update()
+
+    # if snake.rect.right > WIDTH or snake.rect.left < 0 or snake.rect. < 0 or snake.rect.down > HEIGHT:
+    #     running = False
 
     # Draw / render
     screen.fill(BLACK)
