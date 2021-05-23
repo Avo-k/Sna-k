@@ -62,8 +62,12 @@ class Apple(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = (250, 250)
 
+        self.eaten = False
+
     def update(self):
-        pass
+        if self.eaten:
+            self.rect.topleft = random.sample(range(0, 351, 50), 2)
+            self.eaten = False
 
 
 def draw_screen(s):
@@ -81,19 +85,25 @@ all_sprites.add(snake)
 all_sprites.add(apple)
 next_dir = None
 
+
 # Game loop
 running = True
 while running:
     # keep loop running at the right speed
     clock.tick(FPS)
+
     # Process input (events)
     for event in pygame.event.get():
         # check for closing window
         if event.type == pygame.QUIT:
             running = False
-
+        # check for keyboard input
         if event.type == pygame.KEYDOWN:
             snake.next_dir = event.key
+
+    # did the snake eat the apple ?
+    if pygame.sprite.collide_rect(snake, apple):
+        apple.eaten = True
 
     # Update
     all_sprites.update()
