@@ -16,7 +16,6 @@ BLUE = (0, 0, 255)
 
 gen_sq = range(0, WIDTH + 1 - SQUARE, SQUARE)
 ALL_SQUARES = {(x, y) for x in gen_sq for y in gen_sq}
-
 ALL_SPRITES = pygame.sprite.Group()
 
 
@@ -43,7 +42,7 @@ class Snake(pygame.sprite.Sprite):
 
         # Body
         self.new = 0
-        first_tail = self.Boty_part(self)
+        first_tail = self.Body_part(self)
         ALL_SPRITES.add(first_tail)
         self.body = [first_tail]
 
@@ -66,12 +65,13 @@ class Snake(pygame.sprite.Sprite):
                 bp.rect.move_ip(-self.speed, 0)
 
     def eat(self):
-        new_tail = self.Boty_part(self.body[-1])
+        """Create a new body_part"""
+        new_tail = self.Body_part(self.body[-1])
         self.body.append(new_tail)
         ALL_SPRITES.add(new_tail)
         self.new = 1
 
-    class Boty_part(pygame.sprite.Sprite):
+    class Body_part(pygame.sprite.Sprite):
         def __init__(self, parent):
             pygame.sprite.Sprite.__init__(self)
             self.image = pygame.Surface((SQUARE, SQUARE))
