@@ -1,4 +1,3 @@
-# Pygame template - skeleton for new pygame project
 import pygame
 from pygame import K_UP, K_DOWN, K_RIGHT, K_LEFT
 import random
@@ -42,7 +41,7 @@ class Snake(pygame.sprite.Sprite):
         self.body = [first_tail]
 
     def update(self):
-        if all(x % 50 == 0 for x in self.rect.topleft) and \
+        if all(x % square == 0 for x in self.rect.topleft) and \
                 {self.dir, self.next_dir} not in [{K_UP, K_DOWN}, {K_RIGHT, K_LEFT}]:
 
             if self.new:
