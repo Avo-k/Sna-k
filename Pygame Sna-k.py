@@ -5,6 +5,7 @@ import random
 
 WIDTH = 400
 HEIGHT = 400
+square = 50
 FPS = 30
 
 # define colors
@@ -19,8 +20,6 @@ pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-pygame.draw.line(screen, WHITE, (200, 0), (200, 400), 2)
-
 pygame.display.set_caption("Sna-k")
 clock = pygame.time.Clock()
 
@@ -28,7 +27,7 @@ clock = pygame.time.Clock()
 class Snake(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((50, 50))
+        self.image = pygame.Surface((square, square))
         self.image.fill(GREEN)
         self.rect = self.image.get_rect()
         self.rect.topleft = (150, 150)
@@ -76,7 +75,7 @@ class Snake(pygame.sprite.Sprite):
 class Bodypart(pygame.sprite.Sprite):
     def __init__(self, parent):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((50, 50))
+        self.image = pygame.Surface((square, square))
         self.image.fill(GREEN)
         self.rect = self.image.get_rect()
         self.rect.center = parent.rect.center
@@ -87,16 +86,16 @@ class Bodypart(pygame.sprite.Sprite):
 class Apple(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((50, 50))
-        self.image.fill(RED)
+        self.image = pygame.image.load('pic/Applepix.png')
+        self.image = pygame.transform.scale(self.image, (square, square))
         self.rect = self.image.get_rect()
-        self.rect.topleft = random.sample(range(0, 351, 50), 2)
+        self.rect.topleft = random.sample(range(0, WIDTH+1-square, square), 2)
 
         self.eaten = False
 
     def update(self):
         if self.eaten:
-            self.rect.topleft = random.sample(range(0, 351, 50), 2)
+            self.rect.topleft = random.sample(range(0, WIDTH+1-square, square), 2)
             self.eaten = False
 
 
