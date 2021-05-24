@@ -7,7 +7,6 @@ WIDTH = 400
 HEIGHT = 400
 square = 50
 FPS = 30
-x = 1
 
 # define colors
 WHITE = (255, 255, 255)
