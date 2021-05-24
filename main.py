@@ -29,7 +29,7 @@ class Snake(pygame.sprite.Sprite):
         self.image = pygame.Surface((square, square))
         self.image.fill(GREEN)
         self.rect = self.image.get_rect()
-        self.rect.topleft = (150, 150)
+        self.rect.topleft = (square*3, square*3)
 
         self.speed = 150 / FPS  # speed is relative to fps in order to be independent
         self.next_dir = None
@@ -88,13 +88,13 @@ class Apple(pygame.sprite.Sprite):
         self.image = pygame.image.load('pic/Applepix.png')
         self.image = pygame.transform.scale(self.image, (square, square))
         self.rect = self.image.get_rect()
-        self.rect.topleft = random.sample(range(0, WIDTH+1-square, square), 2)
+        self.rect.topleft = random.sample(range(0, WIDTH + 1 - square, square), 2)
 
         self.eaten = False
 
     def update(self):
         if self.eaten:
-            self.rect.topleft = random.sample(range(0, WIDTH+1-square, square), 2)
+            self.rect.topleft = random.sample(range(0, WIDTH + 1 - square, square), 2)
             self.eaten = False
 
 
