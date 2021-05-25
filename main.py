@@ -2,7 +2,7 @@ import pygame
 import random
 
 from constants import *
-from agents import Keyboard, Patient, Ravenous
+from agents import Keyboard, Patient, Ravenous, BFS
 
 
 # initialize pygame and create window
@@ -24,8 +24,9 @@ def draw_screen(s):
 
 apple = Apple()
 # snake = Keyboard()
-snake = Ravenous()
+# snake = Ravenous()
 # snake = Patient()
+snake = BFS()
 ALL_SPRITES.add(apple)
 ALL_SPRITES.add(snake)
 

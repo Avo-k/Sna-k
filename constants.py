@@ -12,7 +12,6 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 230, 0)
-BLUE = (0, 0, 255)
 
 gen_sq = range(0, WIDTH + 1 - SQUARE, SQUARE)
 ALL_SQUARES = {(x, y) for x in gen_sq for y in gen_sq}
@@ -52,7 +51,7 @@ class Snake(pygame.sprite.Sprite):
                 bp.dir = bp.parent.dir
             self.new = 0
 
-            self.dir = self.move()
+            self.dir = self.think()
 
         for bp in [self] + self.body:
             if bp.dir == K_UP:
@@ -80,6 +79,7 @@ class Snake(pygame.sprite.Sprite):
             self.rect.center = parent.rect.center
 
             self.dir = None
+            self.pos = self.rect.topleft
             self.parent = parent
 
 
